@@ -102,7 +102,7 @@ namespace RenameMaster
             this.Controls.Add(this.excelPath_textBox);
             this.Controls.Add(this.execute_button);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "命名名人";
             this.ResumeLayout(false);
             this.PerformLayout();
 
