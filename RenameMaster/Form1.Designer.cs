@@ -35,11 +35,15 @@ namespace RenameMaster
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.openExcel_button = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.check_button = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // execute_button
             // 
-            this.execute_button.Location = new System.Drawing.Point(163, 39);
+            this.execute_button.Location = new System.Drawing.Point(177, 48);
             this.execute_button.Name = "execute_button";
             this.execute_button.Size = new System.Drawing.Size(75, 23);
             this.execute_button.TabIndex = 0;
@@ -49,6 +53,8 @@ namespace RenameMaster
             // 
             // excelPath_textBox
             // 
+            this.excelPath_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.excelPath_textBox.Location = new System.Drawing.Point(12, 12);
             this.excelPath_textBox.Name = "excelPath_textBox";
             this.excelPath_textBox.Size = new System.Drawing.Size(186, 19);
@@ -57,7 +63,7 @@ namespace RenameMaster
             // overwrite_check
             // 
             this.overwrite_check.AutoSize = true;
-            this.overwrite_check.Location = new System.Drawing.Point(81, 43);
+            this.overwrite_check.Location = new System.Drawing.Point(12, 39);
             this.overwrite_check.Name = "overwrite_check";
             this.overwrite_check.Size = new System.Drawing.Size(76, 16);
             this.overwrite_check.TabIndex = 2;
@@ -79,6 +85,7 @@ namespace RenameMaster
             // 
             // openExcel_button
             // 
+            this.openExcel_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.openExcel_button.Location = new System.Drawing.Point(204, 10);
             this.openExcel_button.Name = "openExcel_button";
             this.openExcel_button.Size = new System.Drawing.Size(47, 23);
@@ -91,11 +98,38 @@ namespace RenameMaster
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // check_button
+            // 
+            this.check_button.Location = new System.Drawing.Point(94, 48);
+            this.check_button.Name = "check_button";
+            this.check_button.Size = new System.Drawing.Size(75, 23);
+            this.check_button.TabIndex = 5;
+            this.check_button.Text = "確認";
+            this.check_button.UseVisualStyleBackColor = true;
+            this.check_button.Click += new System.EventHandler(this.check_button_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 172);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(264, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(264, 194);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.check_button);
             this.Controls.Add(this.openExcel_button);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.overwrite_check);
@@ -103,6 +137,8 @@ namespace RenameMaster
             this.Controls.Add(this.execute_button);
             this.Name = "Form1";
             this.Text = "命名名人";
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,6 +152,9 @@ namespace RenameMaster
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.Button openExcel_button;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button check_button;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
     }
 }
 

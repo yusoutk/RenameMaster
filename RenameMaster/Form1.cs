@@ -32,43 +32,45 @@ namespace RenameMaster
         {
             InitializeComponent();
 
-            this.pathList = new List<PathSet>();
+            
         }
 
         private void execute_button_Click(object sender, EventArgs e)
         {
             this.LogTextBox.Text = "";
             int res = LoadExcelFile(excelPath_textBox.Text);
+            decimal psval = 0;
             if (res == 0)
             {
                 foreach (PathSet ps in this.pathList)
                 {
+                    string msg = "\r\n";
                     bool go = true;
                     if (ps.srcPath == "")
                     {
-                        LogTextBox.Text += ps.row.ToString() + "行目: " + "【失敗】コピー元Pathが未指定です。" + "\n\r";
+                        LogTextBox.Text += ps.row.ToString() + "行目: " + "Error: コピー元Pathが未指定です。" + "\n\r";
                         go = false;
                     }
                     else if (!File.Exists(ps.srcPath))
                     {
-                        LogTextBox.Text += ps.row.ToString() + "行目: " + "【失敗】コピー元Pathが存在しません。(" + ps.srcPath + ")" + "\r\n";
+                        LogTextBox.Text += ps.row.ToString() + "行目: " + "Error: コピー元Pathが存在しません。(" + ps.srcPath + ")" + "\r\n";
                         go = false;
                     }
 
                     if (ps.dstPath == "")
                     {
-                        LogTextBox.Text += ps.row.ToString() + "行目: " + "【失敗】コピー先Pathが未指定です。" + "\r\n";
+                        LogTextBox.Text += ps.row.ToString() + "行目: " + "Error: コピー先Pathが未指定です。" + "\r\n";
                         go = false;
                     }
                     else if (File.Exists(ps.dstPath))
                     {
                         if (overwrite_check.Checked)
                         {
-                            LogTextBox.Text += ps.row.ToString() + "行目: " + "上書きしました。(" + ps.dstPath + ")" + "\r\n";
+                            msg = "(上書きしました。(" + ps.dstPath + "))" + "\r\n";
                         }
                         else
                         {
-                            LogTextBox.Text += ps.row.ToString() + "行目: " + "【失敗】コピー先Pathがすでに存在します。(" + ps.dstPath + ")" + "\r\n";
+                            LogTextBox.Text += ps.row.ToString() + "行目: " + "Error: コピー先Pathにファイルが存在します。(" + ps.dstPath + ")" + "\r\n";
                             go = false;
                         }
                     }
@@ -76,10 +78,12 @@ namespace RenameMaster
                     if (go)
                     {
                         CreateDirAndCopyFile(ps.srcPath, ps.dstPath);
-                        LogTextBox.Text += ps.row.ToString() + "行目: " + "うまくいきました。\r\n";
+                        LogTextBox.Text += ps.row.ToString() + "行目: " + "うまくいきました。" + msg;
                     }
-
+                    psval += 1;
+                    toolStripProgressBar1.Value = (int)psval / this.pathList.Count * 100;
                 }
+                
             }
         }
 
@@ -97,6 +101,7 @@ namespace RenameMaster
 
         private int LoadExcelFile(string excelPath)
         {
+            this.pathList = new List<PathSet>();
             XLWorkbook workbook;
             try
             {
@@ -178,6 +183,48 @@ namespace RenameMaster
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 excelPath_textBox.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void check_button_Click(object sender, EventArgs e)
+        {
+            string msg;
+            this.LogTextBox.Text = "";
+            int res = LoadExcelFile(excelPath_textBox.Text);
+            if (res == 0)
+            {
+                foreach (PathSet ps in this.pathList)
+                {
+                    msg = "";
+                    if (ps.srcPath == "")
+                    {
+                        msg = "     Warning: コピー元Pathが未指定です。" + "\n\r";
+                    }
+                    else if (!File.Exists(ps.srcPath))
+                    {
+                        msg = "     Warning: コピー元Pathが存在しません。\r\n";
+                    }
+
+                    if (ps.dstPath == "")
+                    {
+                        msg = "     Warning: コピー先Pathが未指定です。\r\n";
+                    }
+                    else if (File.Exists(ps.dstPath))
+                    {
+                        msg = "     Warning; コピー先Pathにファイルが存在します。";
+                        if(overwrite_check.Checked)
+                        {
+                            msg += "（上書きされます。）\r\n";
+                        }
+                        else
+                        {
+                            msg += "\r\n";
+                        }
+                        
+                    }
+
+                    LogTextBox.Text += ps.row.ToString() + "行目: " + ps.srcPath + " => " + ps.dstPath + "\r\n" + msg;
+                }
             }
         }
     }
